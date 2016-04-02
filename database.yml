@@ -1,0 +1,9 @@
+adapter: mysql2
+host: <%= ENV["APP_DB_HOST"] %>
+port: <%= ENV["APP_DB_PORT"] %>
+database: <%= ENV["APP_DB_DATABASE"] %>
+username: <%= ENV["APP_DB_USER"] %>
+password: <%= ENV["APP_DB_PASS"] %>
+encoding: 'utf8mb4'
+reconnect: true
+pool: 5
