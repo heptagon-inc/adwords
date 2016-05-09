@@ -74,7 +74,9 @@ class Ad
 
 end
 
-keyword_text = ARGV[0]
-ad = Ad.new
-res = ad.get_keyword_ideas(keyword_text)
-ad.insert_data(res)
+keyword_text = ARGV
+keyword_text.each do |word|
+  ad = Ad.new
+  res = ad.get_keyword_ideas(word)
+  ad.insert_data(res)
+end
