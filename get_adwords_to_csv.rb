@@ -9,11 +9,13 @@ adc = Ad::Concurrent.new
 ada = Ad::Analysis.new
 
 File.open('city_list.txt') do |file|
-  file.each_line do |line|
-    line.chomp!
-    keywords.each do |word|
-      keyword = "#{line} #{word}"
-      adc.build_list(keyword)
+  file.each_line do |raw_line|
+    line = raw_line.chomp
+    [line, line.chop].each do |keyword|
+      keywords.each do |word|
+        search_keyword = "#{keyword} #{word}"
+        adc.build_list(search_keyword)
+      end
     end
   end
 end
@@ -25,6 +27,3 @@ end
 merged_csv_data = ada.merge_csv_data()
 csv = ada.build_csv(merged_csv_data[:header],merged_csv_data[:data])
 ada.write_csv(csv, 'aomori.csv')
-
-nodata_csv = ada.build_csv(['nodata_keyword'],ada.nodata_keywords())
-ada.write_csv(nodata_csv, 'aomori_nodata.csv')

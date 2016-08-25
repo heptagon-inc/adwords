@@ -48,6 +48,9 @@ module Ad
         merged_csv_data[:header] = c[:header]
         merged_csv_data[:data] << c[:data]
       end
+      @nodata_keywords.each do |keywords|
+        merged_csv_data[:data] << [keywords[0],0,0,0,0,0,0,0,0,0,0,0,0,0]
+      end
       return merged_csv_data
     end
 
@@ -60,10 +63,6 @@ module Ad
 
     def write_csv(csv, filename)
       File.open(filename, 'w') {|file| file.write(csv) }
-    end
-
-    def nodata_keywords()
-      return @nodata_keywords
     end
 
     private
