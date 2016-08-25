@@ -1,29 +1,26 @@
 #!/usr/bin/env ruby
 # coding: utf-8
 
-require './libadwords.rb'
+require_relative 'lib'
+require_relative 'cities'
+require_relative 'keywords'
+require 'pp'
 
-keywords = ['カヌー','キャンプ','紅葉','ウォーキング','コケ']
+def omit_city_name(city)
+  return city.chop
+end
 
-adc = Ad::Concurrent.new
 ada = Ad::Analysis.new
+header = ada.get_header()
+@data = Array.new
 
-File.open('city_list.txt') do |file|
-  file.each_line do |raw_line|
-    line = raw_line.chomp
-    [line, line.chop].each do |keyword|
-      keywords.each do |word|
-        search_keyword = "#{keyword} #{word}"
-        adc.build_list(search_keyword)
-      end
-    end
+@cities.each do |city|
+  @keywords.each do |keyword|
+    r1 = ada.get_volumes("#{city} #{keyword}")
+    r2 = ada.get_volumes("#{omit_city_name(city)} #{keyword}")
+    @data << ada.merge_data("#{city} #{keyword}", r1, r2)
   end
 end
 
-adc.exec do |keyword|
-  ada.get_monthly_searche_volumes(keyword)
-end
-
-merged_csv_data = ada.merge_csv_data()
-csv = ada.build_csv(merged_csv_data[:header],merged_csv_data[:data])
-ada.write_csv(csv, 'aomori.csv')
+csv = ada.build_csv(header,@data)
+ada.write_file(csv,'aomori.csv')
