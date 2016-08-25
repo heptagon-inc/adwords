@@ -48,6 +48,7 @@ GEM
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     nori (2.6.0)
+    parallel (1.9.0)
     pkg-config (1.1.7)
     rack (2.0.1)
     signet (0.7.3)
@@ -68,6 +69,7 @@ DEPENDENCIES
   google-adwords-api
   hashie
   mysql2-cs-bind
+  parallel
 
 BUNDLED WITH
    1.12.5
