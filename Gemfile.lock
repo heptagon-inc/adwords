@@ -41,9 +41,6 @@ GEM
     mini_portile2 (2.1.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    mysql2 (0.4.4)
-    mysql2-cs-bind (0.0.6)
-      mysql2
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -68,8 +65,7 @@ DEPENDENCIES
   aws-sdk
   google-adwords-api
   hashie
-  mysql2-cs-bind
   parallel
 
 BUNDLED WITH
-   1.12.5
+   1.14.2

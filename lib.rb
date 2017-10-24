@@ -25,6 +25,7 @@ module Ad
       return request_search_volumes(keyword)
     end
 
+=begin
     def merge_data(keyword,main_data,sub_data)
       main_data.shift
       sub_data.shift
@@ -33,6 +34,17 @@ module Ad
       sum = []
       loop do
         sum << e1.next + e2.next
+      end
+      return sum.unshift(keyword)
+    end
+=end
+
+    def merge_data(keyword,main_data)
+      main_data.shift
+      e1 = main_data.to_enum
+      sum = []
+      loop do
+        sum << e1.next
       end
       return sum.unshift(keyword)
     end

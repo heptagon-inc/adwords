@@ -16,11 +16,19 @@ header = ada.get_header()
 
 @cities.each do |city|
   @keywords.each do |keyword|
-    r1 = ada.get_volumes("#{city} #{keyword}")
-    r2 = ada.get_volumes("#{omit_city_name(city)} #{keyword}")
-    @data << ada.merge_data("#{city} #{keyword}", r1, r2)
+    begin
+      r1 = ada.get_volumes("#{city} #{keyword}")
+      pp r1
+      #r2 = ada.get_volumes("#{omit_city_name(city)} #{keyword}")
+      #@data << ada.merge_data("#{city} #{keyword}", r1, r2)
+      @data << ada.merge_data("#{city} #{keyword}", r1)
+    rescue => e
+      pp e
+      sleep 60
+      retry
+    end
   end
 end
 
 csv = ada.build_csv(header,@data)
-ada.write_file(csv,'aomori.csv')
+ada.write_file(csv,'walking.csv')
